@@ -1,0 +1,50 @@
+{
+  "root": "apps/backend",
+  "sourceRoot": "apps/backend",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/nest:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/backend",
+        "outputPath": "dist/apps"
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/nest:serve",
+      "options": {
+        "buildTarget": "backend:build",
+        "dev": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "backend:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nrwl/nest:export",
+      "options": {
+        "buildTarget": "backend:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/backend"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/backend/**/*.{ts,js}"]
+      }
+    }
+  },
+  "tags": []
+}
